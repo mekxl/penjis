@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Caixas de Texto Aleatórias</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; /* prevent scrolling */
+    user-select: none;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  button {
+    background: #ff6f61;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    color: white;
+    font-weight: 700;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(255,111,97,0.4);
+    transition: background 0.3s ease;
+    margin-bottom: 1rem;
+    width: min(90vw, 300px);
+  }
+  button:active {
+    background: #e65549;
+  }
+  button:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  #container {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    max-width: 350px;
+    max-height: 600px;
+    border: 2px solid #fff5;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .box {
+    position: absolute;
+    background: #ff6f61;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    user-select: none;
+    box-shadow: 0 4px 8px rgba(255,111,97,0.5);
+    transform: translateZ(0);
+  }
+  /* For better mobile tap support */
+  @media (max-width: 400px) {
+    button {
+      font-size: 1.1rem;
+      padding: 0.8rem 1.6rem;
+    }
+    .box {
+      font-size: 1rem;
+      padding: 0.3rem 0.6rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <button id="btnCreate">Clique aqui!</button>
+  <div id="container"></div>
+
+  <script>
+    (() => {
+      const btn = document.getElementById('btnCreate');
+      const container = document.getElementById('container');
+
+      function getRandomPosition(boxWidth, boxHeight) {
+        const contRect = container.getBoundingClientRect();
+        // Prevent boxes from going out of container:
+        const maxX = contRect.width - boxWidth;
+        const maxY = contRect.height - boxHeight;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+        return { x, y };
+      }
+
+      btn.addEventListener('click', () => {
+        const box = document.createElement('div');
+        box.className = 'box';
+        box.textContent = 'Penis';
+
+        container.appendChild(box);
+
+        // After appending, we can get the box dimensions:
+        const boxRect = box.getBoundingClientRect();
+
+        // Get random position within container
+        const pos = getRandomPosition(boxRect.width, boxRect.height);
+
+        // Position box inside container relative to it
+        // container is relative positioned, so we use offsetLeft.
+        box.style.left = pos.x + 'px';
+        box.style.top = pos.y + 'px';
+      });
+
+      // Optional: On first load, prevent vertical scroll on mobile
+      window.addEventListener('resize', () => {
+        // Could add functionality to limit container height if needed
+      });
+    })();
+  </script>
+</body>
+</html>
+</content>
+</create_file>
